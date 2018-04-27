@@ -38,7 +38,7 @@ import org.apache.spark.util.{ThreadUtils, UninterruptibleThread}
 private[kinesis] case class KinesisReader(
     readerOptions: Map[String, String],
     streamName: String,
-    kinesisCredsProvider: BasicCredentials,
+    kinesisCredsProvider: SparkAWSCredentials,
     endpointUrl: String
 ) extends Serializable with Logging {
 

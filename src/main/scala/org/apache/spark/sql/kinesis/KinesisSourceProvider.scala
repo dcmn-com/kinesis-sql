@@ -85,7 +85,7 @@ private[kinesis] class KinesisSourceProvider extends DataSourceRegister
 
     val initialPosition: KinesisPosition = getKinesisPosition(caseInsensitiveParams)
 
-    val kinesisCredsProvider: BasicCredentials = BasicCredentials(awsAccessKeyId, awsSecretKey)
+    val kinesisCredsProvider: SparkAWSCredentials = DefaultCredentials
 
     new KinesisSource(
       sqlContext, specifiedKinesisParams, metadataPath,
