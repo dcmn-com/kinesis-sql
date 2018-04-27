@@ -17,6 +17,7 @@
 package org.apache.spark.sql.kinesis
 
 import com.amazonaws.auth._
+import com.amazonaws.auth.profile.ProfileCredentialsProvider
 
 import org.apache.spark.annotation.InterfaceStability
 import org.apache.spark.internal.Logging
@@ -36,7 +37,10 @@ private[kinesis] sealed trait SparkAWSCredentials extends Serializable {
 /** Returns DefaultAWSCredentialsProviderChain for authentication. */
 private[kinesis] final case object DefaultCredentials extends SparkAWSCredentials {
 
-  def provider: AWSCredentialsProvider = new DefaultAWSCredentialsProviderChain
+  def provider: AWSCredentialsProvider = new AWSCredentialsProviderChain(
+    new InstanceProfileCredentialsProvider(true),
+    new ProfileCredentialsProvider()
+  )
 }
 
 /**
